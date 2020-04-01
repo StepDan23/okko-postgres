@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  jupyter:
+    build:
+      context: notebook-docker
+      dockerfile: Dockerfile
+    image: jyp-notebook:v1
+    volumes:
+      - $PWD/notebooks:/home/jovyan/work/notebooks
+      - $PWD/notebook-docker:/home/jovyan/work/build
+      - $PWD/resources/static:/home/jovyan/work/data
+    ports:
+      - 8888:8888
+    links:
+      - db
+
+  db:
+    image: postgres:12
+    restart: always
+    env_file:
+      - database.env
+    volumes:
+      - ./src/database/init:/docker-entrypoint-initdb.d/
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  db-data:
+
+
+# TODO: add TZ Europe/Moscow

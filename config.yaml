@@ -1,0 +1,12 @@
+input_generator:
+    n_items: 5000
+    n_users: 10000
+    n_interactions: 100000
+
+postgres:
+    host: db
+    port: 5432
+    user: postgres
+    db: postgres
+    pwd: pwd
+
