@@ -5,7 +5,7 @@ CREATE TABLE ratings
   "user_uid" integer NOT NULL,
   "element_uid" integer NOT NULL,
   "rating" smallint NOT NULL,
-  "ts" timestamp NOT NULL
+  "ts" double precision NOT NULL
 );
 
 ALTER TABLE ratings

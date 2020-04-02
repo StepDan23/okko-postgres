@@ -4,7 +4,7 @@ CREATE TABLE bookmarks
 (
   "user_uid" integer NOT NULL,
   "element_uid" integer NOT NULL,
-  "ts" timestamp NOT NULL
+  "ts" double precision NOT NULL
 );
 
 ALTER TABLE bookmarks

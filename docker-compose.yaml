@@ -7,9 +7,10 @@ services:
       dockerfile: Dockerfile
     image: jyp-notebook:v1
     volumes:
-      - $PWD/notebooks:/home/jovyan/work/notebooks
-      - $PWD/notebook-docker:/home/jovyan/work/build
-      - $PWD/resources/static:/home/jovyan/work/data
+      - ./notebooks:/home/jovyan/work/notebooks
+      - ./notebook-docker:/home/jovyan/work/build
+      - ./data:/home/jovyan/work/data
+      - ./src:/home/jovyan/work/src
     ports:
       - 8888:8888
     links:
@@ -19,21 +20,15 @@ services:
     image: postgres:12
     restart: always
     env_file:
-      - database.env
+      - src/database.env
     volumes:
-      - ./src/database/init:/docker-entrypoint-initdb.d/
+      - ./scripts/init:/docker-entrypoint-initdb.d/
       - db-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
 volumes:
   db-data:
 
-
-# TODO: add TZ Europe/Moscow
+# TODO: add python container for init_db
+# TODO: add ALS model and reranking model
